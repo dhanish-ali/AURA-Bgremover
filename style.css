@@ -1,0 +1,88 @@
+
+/* Custom styles for the Aura AI Background Remover */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* A cool, dark background with a subtle grid pattern */
+    background-color: #111827; /* gray-900 */
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 25px 25px;
+    color: #d1d5db; /* gray-300: Light gray text for dark mode */
+}
+
+/* Custom class for the main card/panel look */
+.glass-panel {
+    background: rgba(31, 41, 55, 0.6); /* Semi-transparent dark gray (gray-800 with 60% opacity) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem; /* More rounded corners */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Styling for the drag-and-drop zone */
+#drop-zone {
+    border-color: rgba(75, 85, 99, 0.8); /* gray-600 */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover and drag-over effect for the drop zone */
+#drop-zone.drag-over, #drop-zone:hover {
+    border-color: #818cf8; /* indigo-400 for highlighting */
+    background: rgba(79, 70, 229, 0.1); /* indigo-600 with 10% opacity */
+}
+
+/* Custom button styling */
+.primary-btn {
+    background: linear-gradient(90deg, #4f46e5, #818cf8); /* indigo-600 to indigo-400 */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.5);
+}
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.6);
+}
+
+/* A more interesting loading animation */
+.loader {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #818cf8; /* indigo-400 */
+    animation: prixClipFix 2s linear infinite ;
+}
+@keyframes rotate {
+    100% {transform: rotate(360deg)}
+}
+@keyframes prixClipFix {
+    0% {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25% {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+/* FIX for image preview: Ensure the container has a defined size */
+.image-preview-container {
+    width: 100%;
+    height: 300px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+.image-preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* This ensures the whole image is visible without being stretched */
+}

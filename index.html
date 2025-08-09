@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura AI | Background Remover</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        
+        <div class="w-full max-w-5xl mx-auto">
+            
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 pb-2">
+                    Aura AI Background Remover
+                </h1>
+                <p class="mt-2 text-lg text-gray-400">Your images, your device. Instant background removal, completely free & private.</p>
+            </header>
+
+            <div id="upload-section" class="glass-panel p-6 md:p-8 w-full">
+                <div id="drop-zone" class="border-2 border-dashed rounded-xl p-8 md:p-12 text-center">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 text-gray-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3 3m3-3l3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                        </svg>
+                        <p class="text-xl font-semibold text-gray-200 mb-2">Drag & Drop an Image</p>
+                        <p class="text-gray-400 mb-4">or</p>
+                        <label for="file-input" class="primary-btn text-white font-semibold px-6 py-3 rounded-lg cursor-pointer">
+                            Browse Files
+                        </label>
+                        <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/webp">
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center">Supports PNG, JPG, WEBP. High resolution images are processed locally.</p>
+            </div>
+
+            <div id="result-section" class="hidden w-full mt-8">
+                <div id="loading-state" class="glass-panel text-center p-8">
+                    <div class="loader mx-auto"></div>
+                    <p class="mt-6 text-lg font-semibold text-gray-200">Processing in progress...</p>
+                    <p class="text-gray-400">The AI is working its magic. This might take a moment.</p>
+                </div>
+
+                <div id="result-state" class="hidden">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="glass-panel p-4">
+                            <h2 class="text-xl font-bold text-center mb-4 text-gray-200">Original</h2>
+                            <div class="image-preview-container bg-gray-900/50">
+                                <img id="original-image-preview" src="#" alt="Original">
+                            </div>
+                        </div>
+                        <div class="glass-panel p-4">
+                            <h2 class="text-xl font-bold text-center mb-4 text-gray-200">Result</h2>
+                             <div class="image-preview-container bg-cover" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAADBJREFUOE9jZGBgEGHAD97/B4MhgK4GjAV4oBigsALjgK4GjAV4oBigsALjAFWlT8sABwB4GkG2hX2GqAAAAABJRU5ErkJggg==');">
+                                <img id="result-image-preview" src="#" alt="Result">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 glass-panel p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                         <div class="text-center md:text-left">
+                            <h3 class="text-lg font-semibold text-gray-200">Download Your Image</h3>
+                            <p class="text-gray-400 text-sm">Save the high-resolution, background-free image.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button id="download-btn" class="primary-btn text-white font-bold px-8 py-3 rounded-lg flex items-center gap-2">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg>
+                                Download
+                            </button>
+                            <button id="start-over-btn" class="bg-gray-600 text-gray-200 font-semibold px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                New Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+    
+    <script type="importmap">
+    {
+        "imports": {
+            "@imgly/background-removal": "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.1/dist/bundle.js"
+        }
+    }
+    </script>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
